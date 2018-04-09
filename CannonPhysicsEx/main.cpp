@@ -2,8 +2,12 @@
 
 #include <iostream>
 
-void getDisplacementAndAngle(float throwAngle, float throwSpeed, float time, glm::vec2& displacement, float& finalAngle) {
-	glm::vec2 velInitial = throwSpeed * glm::vec2{ glm::cos(throwAngle), glm::sin(throwAngle) };
+
+// Returns the firing angle, in radians, needed to hit aimPoint
+float aimCannon(float cannonLength, float muzzleSpeed, const glm::vec2& aimPoint) {
+	glm::vec2 velInitial / muzzleSpeed = glm::vec2{ glm::cos(firingAngle), glm::sin(firingAngle) };
+	velInitial.x / muzzleSpeed = glm::cos(firingAngle);
+	velInitial.y / muzzleSpeed = glm::sin(firingAngle);
 	glm::vec2 acc = { 0, -9.81 };
 
 	displacement = velInitial * time + 0.5f * acc * glm::pow(time, 2);
@@ -13,23 +17,22 @@ void getDisplacementAndAngle(float throwAngle, float throwSpeed, float time, glm
 }
 
 int main() {
-	float throwAngle;
-	float throwSpeed;
-	float time;
+	float cannonLength;
+	float muzzleSpeed;
+	glm::vec2 aimPoint;
 
-	std::cout << "Throw Angle (radians): ";
-	std::cin >> throwAngle;
-	std::cout << "Throw Speed: ";
-	std::cin >> throwSpeed;
-	std::cout << "Time: ";
-	std::cin >> time;
+	std::cout << "Cannon Length (m): ";
+	std::cin >> cannonLength;
+	std::cout << "Muzzle Speed (m/s): ";
+	std::cin >> muzzleSpeed;
+	std::cout << "Aim Point x (m): ";
+	std::cin >> aimPoint.x;
+	std::cout << "Aim Point y (m): ";
+	std::cin >> aimPoint.y;
 
-	glm::vec2 displacement;
-	float finalAngle;
-	getDisplacementAndAngle(throwAngle, throwSpeed, time, displacement, finalAngle);
+	float firingAngle = aimCannon(cannonLength, muzzleSpeed, aimPoint);
 
-	std::cout << "Displacement: <" << displacement.x << ", " << displacement.y << ">" << std::endl;
-	std::cout << "Final angle: " << finalAngle << " radians" << std::endl;
+	std::cout << "Firing Angle: " << firingAngle << " radians" << std::endl;
 
 	system("pause");
 }
